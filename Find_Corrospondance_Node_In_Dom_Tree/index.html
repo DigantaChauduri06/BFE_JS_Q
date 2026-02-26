@@ -1,0 +1,47 @@
+<!-- https://bigfrontend.dev/problem/find-corresponding-node-in-two-identical-DOM-tree -->
+<!-- https://www.youtube.com/watch?v=ElHeF2zY570&list=PLdDT54c2vNM7AHSDhX3_hnki1BfzT59xF&index=1&t=207s -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <div id="tree1">
+    <div class="container">
+        <div class="row">ROW</div>
+        <div id="target">ROW</div>
+        <div class="row">ROW</div>
+    </div>
+   </div> 
+   <div id="tree2">
+    <div class="container">
+        <div class="row">ROW</div>
+        <div>You Found Me</div>
+        <div class="row">ROW</div>
+    </div>
+   </div> 
+   <script>
+    function corrospondeingTreeNode(treeA, treeB, target) {
+        const stack1 = [treeA]
+        const stack2 = [treeB]
+        while (stack1.length) {
+            const currentA = stack1.pop()
+            const currentB = stack2.pop()
+            if (currentA === target) {
+                return currentB
+            }
+            stack1.push(...currentA.childNodes)
+            stack2.push(...currentB.childNodes)
+        }
+    }
+    const treeA = document.getElementById('tree1')
+    const treeB = document.getElementById('tree2')
+    const target = document.getElementById('target')
+
+    console.log(corrospondeingTreeNode(treeA, treeB, target))
+
+   </script>
+</body>
+</html>
